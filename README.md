@@ -1,4 +1,6 @@
-# AI Explorer — Multi-Provider AI-Only Search
+# IIT_Search_Proj
+
+## AI Explorer — Multi-Provider AI-Only Search
 
 A search application restricted exclusively to Artificial Intelligence topics. Users pick an AI
 provider (OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, OpenRouter, or any
