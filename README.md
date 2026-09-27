@@ -10,11 +10,14 @@ query is validated — on the backend, independently of the frontend — before 
 - **Backend:** Python 3.11+, FastAPI, Clean Architecture (`domain` / `application` / `infrastructure`
   / `api`)
 - **Frontend:** React 18 + TypeScript + Tailwind CSS (Vite)
+- **Streamlit deployment:** `streamlit_app.py` reuses the same backend provider and validation logic.
 
 ## Project layout
 
 ```
 ai-explorer/
+├── streamlit_app.py           # Streamlit Cloud entry point
+├── requirements.txt           # Streamlit deployment dependencies
 ├── backend/
 │   ├── app/
 │   │   ├── domain/            # Provider registry, AI-topic rules, entities — no I/O
@@ -68,6 +71,24 @@ npm run dev
 Open `http://localhost:5173`. The Vite dev server proxies `/api/*` to `http://localhost:8000`
 (see `vite.config.ts`), so no CORS configuration is needed in development beyond the backend's
 `ALLOWED_ORIGINS`.
+
+### Streamlit
+
+Install the root deployment requirements and start the Streamlit app:
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate       # Windows
+source .venv/bin/activate      # macOS/Linux
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+For Streamlit Community Cloud, select this repository's `main` branch and set the main file path to
+`streamlit_app.py`. The root `requirements.txt` installs Streamlit and the backend provider packages.
+The Streamlit app calls the search services directly, so it does not require a separately deployed
+FastAPI server. Users enter their provider API key in the app; it is held in session memory and is
+not stored in a file.
 
 ### Using the app
 
